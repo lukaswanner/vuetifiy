@@ -13,16 +13,16 @@
                     {{row}}
                 </div>
                 <v-col class="myCell" v-for="(m,index) in cells[i]" :key="m + index">
-                    <div v-if="m !== ''" class="myCell myCard">
+                    <div v-if="m !== ''" class="myCell myCard" @click="addclick(cells,$event)">
                         <div class="myCharacter"> {{m}}</div>
                         <div class="myPoint"> {{points[m]}} </div>
                     </div>
 
-                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal"></div>
-                    <div v-else-if="kind[i][index] ==='d'" class="myCell double">
+                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click="addclick(cells,$event)"></div>
+                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(cells,$event)">
                         x2
                     </div>
-                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple">
+                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(cells,$event)">
                         x3
                     </div>
                 </v-col>
@@ -67,13 +67,13 @@
             }
         },
         methods: {
-            // addclick: function(grid, event) {
-            //     if (!event.target.classList.contains("activeDiv")) {
-            //         return recolor(event.target, $(".myCell"))
-            //     } else {
-            //         return setCard(grid)
-            //     }
-            // }
+            addclick: function(grid, event) {
+                if (!event.target.classList.contains("activeDiv")) {
+                    event.target.classList.add("activeDiv")
+                } else {
+                    console.log("clicked")
+                }
+            }
         }
     }
 </script>
@@ -153,6 +153,9 @@
         background-color: #f85c5c;
     }
 
+    .activeDiv {
+        border : 1px solid black;
+    }
 
 </style>
 
