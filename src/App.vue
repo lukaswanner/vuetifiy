@@ -3,22 +3,24 @@
 
     <navbar/>
     <v-main>
-    <grid/>
+    <homepage/>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import navbar from './components/navbar.vue';
-import grid from './components/grid.vue'
+// import grid from './components/grid.vue'
+import homepage from './components/homepage';
+
 
 
 export default {
   name: 'App',
 
   components: {
+    homepage,
     navbar,
-    grid,
   },
 
   data: () => ({
