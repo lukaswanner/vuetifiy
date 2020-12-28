@@ -1,33 +1,55 @@
 <template>
 
     <div class="myGrid">
-        <v-col class="myCol" v-for="(n) in size" :key="n">
-            <v-row class="myRow" v-for="(x,i) in size" :key="x">
-                <div v-if="(n-1) === 0 && (x-1) === 0" class="myCell myLabel">
-                    test
-                </div>
+        <v-container>
+            <v-row>
+                <div class="myCell myLabel"></div>
+                <v-col v-for="(n,i) in size" :key="n" class="myCell myLabel">
+                    {{ n }}
+                    <div v-for="(m,index) in cells[i]" :key="m">
+                        <div v-if="m !== ''" class="myCell myCard">
+                            <div class="myCharacter"> {{m}}</div>
+                            <div class="myPoint"> {{points[m]}}</div>
+                        </div>
 
-                <div v-else class="myCell myLabel"> {{ x }}</div>
-                <div v-for="(m,index) in cells[i]" :key="m">
-                    <div v-if="m !== ''" class="myCell myCard">
-                        <div class="myCharacter"> {{m}}</div>
-                        <div class="myPoint"> {{points[m]}}</div>
-                    </div>
+                        <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
+                             @click="addclick(mygrid,$event)"></div>
+                        <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(mygrid,$event)">
+                            x2
+                        </div>
+                        <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(mygrid,$event)">
+                            x3
+                        </div>
 
-                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
-                         @click="addclick(mygrid,$event)"></div>
-                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(mygrid,$event)">
-                        x2
                     </div>
-                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(mygrid,$event)">
-                        x3
-                    </div>
-
-                </div>
+                </v-col>
             </v-row>
-        </v-col>
-    </div>
+            <v-row class="myRow" v-for="(n) in size" :key="n">
+                <div class="myCell myLabel">
+                    {{n}}
+                </div>
+                <v-col v-for="(n,i) in size" :key="n" class="myCell myLabel">
+                    {{ n }}
+                    <div v-for="(m,index) in cells[i]" :key="m">
+                        <div v-if="m !== ''" class="myCell myCard">
+                            <div class="myCharacter"> {{m}}</div>
+                            <div class="myPoint"> {{points[m]}}</div>
+                        </div>
 
+                        <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
+                             @click="addclick(mygrid,$event)"></div>
+                        <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(mygrid,$event)">
+                            x2
+                        </div>
+                        <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(mygrid,$event)">
+                            x3
+                        </div>
+
+                    </div>
+                </v-col>
+            </v-row>
+        </v-container>
+    </div>
 </template>
 
 <script>
@@ -66,7 +88,9 @@
         border-radius: 1em;
         grid-gap: 0;
         padding: .5em;
+        margin: 0px;
     }
+
 
     .myCell {
         display: flex;
@@ -77,6 +101,9 @@
         min-height: 2.5em;
         border-radius: .3em;
         margin: .15em;
+
+        max-height: 2em;
+        max-width: 2em;
 
         background: #f0f0f0;
         box-shadow: inset 3px 3px 6px 4px rgba(100, 100, 100, 0.15);
@@ -90,6 +117,7 @@
         color: white;
         box-shadow: none;
     }
+
 </style>
 
 
