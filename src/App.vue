@@ -1,10 +1,7 @@
 <template>
   <v-app>
-
     <navbar/>
-    <v-main>
     <grid/>
-    </v-main>
   </v-app>
 </template>
 

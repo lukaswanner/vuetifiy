@@ -41,7 +41,7 @@ const store = new Vuex.Store({
     state: {
         cells: [],
         kind: [],
-        size: 10,
+        size: 15,
         points: point
     },
     mutations: {
