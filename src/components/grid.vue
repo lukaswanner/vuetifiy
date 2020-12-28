@@ -1,28 +1,38 @@
 <template>
-    <div>
-        <div class="myGrid">
-            <v-col class="myCol" v-for="(n) in size" :key="n">
-                <v-row class="myRow" v-for="(x,i) in size" :key="x">
-                    <div class="myCell myLabel"> {{ x }}</div>
-                    <div v-for="(m,index) in cells[i]" :key="m">
-                        <div v-if="m !== ''" class="myCell myCard">
-                            <div class="myCharacter"> {{m}} </div>
-                            <div class="myPoint"> {{points[m]}} </div>
-                        </div>
 
-                        <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click="addclick(mygrid,$event)"></div>
-                        <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(mygrid,$event)">x2</div>
-                        <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(mygrid,$event)">x3</div>
+    <div class="myGrid">
+        <v-col class="myCol" v-for="(n) in size" :key="n">
+            <v-row class="myRow" v-for="(x,i) in size" :key="x">
+                <div v-if="(n-1) === 0 && (x-1) === 0" class="myCell myLabel">
+                    test
+                </div>
 
+                <div v-else class="myCell myLabel"> {{ x }}</div>
+                <div v-for="(m,index) in cells[i]" :key="m">
+                    <div v-if="m !== ''" class="myCell myCard">
+                        <div class="myCharacter"> {{m}}</div>
+                        <div class="myPoint"> {{points[m]}}</div>
                     </div>
-                </v-row>
-            </v-col>
-        </div>
+
+                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
+                         @click="addclick(mygrid,$event)"></div>
+                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(mygrid,$event)">
+                        x2
+                    </div>
+                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(mygrid,$event)">
+                        x3
+                    </div>
+
+                </div>
+            </v-row>
+        </v-col>
     </div>
+
 </template>
 
 <script>
     import store from '../assets/data.js'
+
     console.log(store.state)
     export default {
         name: "grid",
