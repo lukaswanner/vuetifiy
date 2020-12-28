@@ -43,8 +43,6 @@
     export default {
         name: 'navbar',
 
-        data: () => ({
-
-        }),
+        data: () => ({}),
     }
 </script>
