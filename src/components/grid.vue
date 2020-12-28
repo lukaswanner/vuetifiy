@@ -4,47 +4,26 @@
         <v-container>
             <v-row>
                 <div class="myCell myLabel"></div>
-                <v-col v-for="(n,i) in size" :key="n" class="myCell myLabel">
-                    {{ n }}
-                    <div v-for="(m,index) in cells[i]" :key="m">
-                        <div v-if="m !== ''" class="myCell myCard">
-                            <div class="myCharacter"> {{m}}</div>
-                            <div class="myPoint"> {{points[m]}}</div>
-                        </div>
-
-                        <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
-                             @click="addclick(mygrid,$event)"></div>
-                        <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(mygrid,$event)">
-                            x2
-                        </div>
-                        <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(mygrid,$event)">
-                            x3
-                        </div>
-
-                    </div>
+                <v-col v-for="(col) in size" :key="col" class="myCell myLabel">
+                    {{ col }}
                 </v-col>
             </v-row>
-            <v-row class="myRow" v-for="(n) in size" :key="n">
+            <v-row class="myRow" v-for="(row,i) in size" :key="row">
                 <div class="myCell myLabel">
-                    {{n}}
+                    {{row}}
                 </div>
-                <v-col v-for="(n,i) in size" :key="n" class="myCell myLabel">
-                    {{ n }}
-                    <div v-for="(m,index) in cells[i]" :key="m">
-                        <div v-if="m !== ''" class="myCell myCard">
-                            <div class="myCharacter"> {{m}}</div>
-                            <div class="myPoint"> {{points[m]}}</div>
-                        </div>
+                <v-col class="myCell" v-for="(m,index) in cells[i]" :key="m + index">
+                    <div v-if="m !== ''" class="myCell myCard">
+                        <div class="myCharacter"> {{m}}</div>
+                        <div class="myPoint"> {{points[m]}} </div>
+                    </div>
 
-                        <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
-                             @click="addclick(mygrid,$event)"></div>
-                        <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(mygrid,$event)">
-                            x2
-                        </div>
-                        <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(mygrid,$event)">
-                            x3
-                        </div>
-
+                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal"></div>
+                    <div v-else-if="kind[i][index] ==='d'" class="myCell double">
+                        x2
+                    </div>
+                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple">
+                        x3
                     </div>
                 </v-col>
             </v-row>
@@ -55,7 +34,20 @@
 <script>
     import store from '../assets/data.js'
 
-    console.log(store.state)
+    global.jQuery = require('jquery');
+
+    let $ = global.jQuery;
+    window.$ = $;
+
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:9000/json",
+        dataType: "json",
+        success: function (result) {
+            store.commit("fill", {json: result, size: 15});
+        }
+    })
+
     export default {
         name: "grid",
 
@@ -63,9 +55,15 @@
             return {
                 store: store,
                 size: store.state.size,
-                cells: store.state.cells,
-                kind: store.state.kind,
                 points: store.state.points,
+            }
+        },
+        computed: {
+            cells() {
+                return store.state.cells
+            },
+            kind() {
+                return store.state.kind
             }
         },
         methods: {
@@ -117,6 +115,44 @@
         color: white;
         box-shadow: none;
     }
+
+    .myCard {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        min-width: 2.5em;
+        min-height: 2.5em;
+        border-radius: .5em;
+        margin: .2em;
+
+        background-image: url("../assets/card.png");
+        background-size: cover;
+        /*background: #d29d7a;*/
+        box-shadow: 3px 3px 5px 2px rgba(100, 100, 100, 0.15);
+        font-weight: bold;
+    }
+
+    .myCharacter {
+        font-size: 1.2em;
+    }
+
+    .myPoint {
+        position: absolute;
+        right: .2em;
+        bottom: .08em;
+        font-size: .7em;
+    }
+
+    .double {
+        background-color: #ffe252;
+    }
+
+    .triple {
+        background-color: #f85c5c;
+    }
+
 
 </style>
 

@@ -21,19 +21,30 @@ const point = {
     "0": 1
 }
 
-function fill(json) {
+function fill(json,size) {
     let data = []
-    let cellKinds = []
-    for (let j = 0; j < store.state.size; j++) {
-        for (let i = 0; i < store.state.size; i++) {
+    let cells = []
+    for (let j = 0; j < size; j++) {
+        for (let i = 0; i < size; i++) {
             data[i] = json[i][j].value
-            cellKinds[i] = json[i][j].kind
         }
-        store.state.kind[j] = cellKinds
-        store.state.cells[j] = data
+        cells[j] = data
         data = []
-        cellKinds = []
     }
+    return cells[0].map((_, colIndex) => cells.map(row => row[colIndex]));
+}
+
+function fillKind(json,size) {
+    let data = []
+    let kind = []
+    for (let j = 0; j < size; j++) {
+        for (let i = 0; i < size; i++) {
+            data[i] = json[i][j].kind
+        }
+        kind[j] = data
+        data = []
+    }
+    return kind[0].map((_, colIndex) => kind.map(row => row[colIndex]));
 }
 
 
@@ -48,9 +59,10 @@ const store = new Vuex.Store({
         setSize(state,size) {
             state.size = size
         },
-        fill(state, json, size) {
-            state.size = size
-            fill(json)
+        fill(state,payload) {
+            state.size = payload.size
+            state.cells = fill(payload.json.gameField.grid.cells,state.size)
+            state.kind = fillKind(payload.json.gameField.grid.cells,state.size)
         }
     }
 })
