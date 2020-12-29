@@ -1,31 +1,34 @@
 <template>
 
     <div class="myGrid">
-        <v-container>
-            <v-row>
+        <v-container fill-height fluid>
+            <v-row align="center" justify="center">
                 <div class="myCell myLabel"></div>
                 <v-col v-for="(col) in size" :key="col" class="myCell myLabel">
                     {{ col }}
                 </v-col>
             </v-row>
-            <v-row class="myRow" v-for="(row,i) in size" :key="row">
+            <v-row class="myRow" v-for="(row,i) in size" :key="row" align="center" justify="center">
                 <div class="myCell myLabel">
                     {{row}}
                 </div>
                 <v-col class="myCell" v-for="(m,index) in cells[i]" :key="m + index">
-                    <div v-if="m !== ''" class="myCell myCard" @click="addclick(cells,$event)">
+                    <div v-if="m !== ''" class="myCell myCard" @click.self="addclick(cells,$event)">
                         <div class="myCharacter"> {{m}}</div>
-                        <div class="myPoint"> {{points[m]}} </div>
+                        <div class="myPoint"> {{points[m]}}</div>
                     </div>
 
-                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click="addclick(cells,$event)"></div>
-                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(cells,$event)">
+                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click.self="addclick(cells,$event)"></div>
+                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click.self="addclick(cells,$event)">
                         x2
                     </div>
-                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(cells,$event)">
+                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click.self="addclick(cells,$event)">
                         x3
                     </div>
                 </v-col>
+            </v-row>
+            <v-row>
+                <hand/>
             </v-row>
         </v-container>
     </div>
@@ -33,28 +36,43 @@
 
 <script>
     import store from '../assets/data.js'
+    import hand from '../components/hand.vue'
 
     global.jQuery = require('jquery');
 
     let $ = global.jQuery;
     window.$ = $;
 
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:9000/json",
-        dataType: "json",
-        success: function (result) {
-            store.commit("fill", {json: result, size: 15});
-        }
-    })
+    function loadjson() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                method: "GET",
+                async: false,
+                url: "http://localhost:9000/json",
+                dataType: "json",
+                success: function (result) {
+                    store.commit("fill", {json: result, size: 15});
+                    resolve(result)
+                },
+                error: function (result) {
+                    reject(result)
+                }
+            })
+        })
+    }
+
+    loadjson()
 
     export default {
         name: "grid",
 
+
+        components: {
+            hand,
+        },
         data: function () {
             return {
                 store: store,
-                size: store.state.size,
                 points: store.state.points,
             }
         },
@@ -64,14 +82,33 @@
             },
             kind() {
                 return store.state.kind
-            }
+            },
+            size() {
+                return store.state.size
+            },
         },
         methods: {
-            addclick: function(grid, event) {
-                if (!event.target.classList.contains("activeDiv")) {
-                    event.target.classList.add("activeDiv")
+            addclick: function (grid, event) {
+                if (!event.target.classList.contains("active")) {
+                    $(".myCell").removeClass("active")
+                    event.target.classList.add("active")
                 } else {
-                    console.log("clicked")
+                    //w8 for response
+                    loadjson().then(function getHand(response) {
+                        console.log(response)
+                        let hand = response.gameField.playerList.A.hand
+                        console.log(hand[0].value)
+                        //zeile spalte index von der hand
+                        let url = "http://localhost:9000/scrabble/set/" + 7 + "/" + 9 + "/" + 4
+                        console.log(url)
+                        $.ajax({
+                            method: "GET",
+                            url: url,
+                            success: function () {
+                                console.log("done")
+                            }
+                        })
+                    })
                 }
             }
         }
@@ -153,8 +190,8 @@
         background-color: #f85c5c;
     }
 
-    .activeDiv {
-        border : 1px solid black;
+    .active {
+        border: 1px solid black;
     }
 
 </style>

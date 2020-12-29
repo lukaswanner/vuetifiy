@@ -47,12 +47,39 @@ function fillKind(json,size) {
     return kind[0].map((_, colIndex) => kind.map(row => row[colIndex]));
 }
 
+function fillHand(json) {
+    let list = []
+    json.forEach(card =>
+        list.push(card.value)
+    )
+    return list
+}
+
+function fillPlayer(json) {
+    if(json.status === "pA" || json.status === "fc"){
+        return "A"
+    }else{
+        return "B"
+    }
+}
+
+function fillHandSize(json) {
+    if(store.state.currentPlayer === "A"){
+        return json.gameField.playerList.A.hand.length
+    }else{
+        return json.gameField.playerList.B.hand.length
+    }
+}
 
 const store = new Vuex.Store({
     state: {
         cells: [],
         kind: [],
         size: 15,
+        currentPlayer: "",
+        handSize:0,
+        handA: [],
+        handB: [],
         points: point
     },
     mutations: {
@@ -63,6 +90,10 @@ const store = new Vuex.Store({
             state.size = payload.size
             state.cells = fill(payload.json.gameField.grid.cells,state.size)
             state.kind = fillKind(payload.json.gameField.grid.cells,state.size)
+            state.handA = fillHand(payload.json.gameField.playerList.A.hand)
+            state.handB = fillHand(payload.json.gameField.playerList.B.hand)
+            state.currPlayer = fillPlayer(payload.json)
+            state.handSize = fillHandSize(payload.json)
         }
     }
 })
