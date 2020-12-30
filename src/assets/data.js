@@ -92,7 +92,7 @@ const store = new Vuex.Store({
             state.kind = fillKind(payload.json.gameField.grid.cells,state.size)
             state.handA = fillHand(payload.json.gameField.playerList.A.hand)
             state.handB = fillHand(payload.json.gameField.playerList.B.hand)
-            state.currPlayer = fillPlayer(payload.json)
+            state.currentPlayer = fillPlayer(payload.json)
             state.handSize = fillHandSize(payload.json)
         }
     }

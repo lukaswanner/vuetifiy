@@ -4,15 +4,15 @@
         <v-container fill-height fluid>
             <v-row align="center" justify="center">
                 <div class="myCell myLabel"></div>
-                <v-col v-for="(col) in size" :key="col" class="myCell myLabel">
+                <div v-for="(col) in size" :key="col" class="myCell myLabel">
                     {{ col }}
-                </v-col>
+                </div>
             </v-row>
             <v-row class="myRow" v-for="(row,i) in size" :key="row" align="center" justify="center">
                 <div class="myCell myLabel">
                     {{row}}
                 </div>
-                <v-col class="myCell" v-for="(m,index) in cells[i]" :key="m + index">
+                <div v-for="(m,index) in cells[i]" :key="m + index">
                     <div v-if="m !== ''" class="myCell myCard" @click="addclick(cells,$event)">
                         <div class="myCharacter"> {{m}}</div>
                         <div class="myPoint"> {{points[m]}}</div>
@@ -25,7 +25,9 @@
                     <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(cells,$event)">
                         x3
                     </div>
-                </v-col>
+
+                </div>
+
             </v-row>
             <v-row>
                 <hand/>
@@ -37,6 +39,7 @@
 <script>
     import store from '../assets/data.js'
     import hand from '../components/hand.vue'
+    import setCard from '../javascripts/setCard.js'
 
     global.jQuery = require('jquery');
 
@@ -95,8 +98,9 @@
                     //w8 for response
                     loadjson().then(function getHand(response) {
                         //responese = json
+                        //handle request
                         console.log(response)
-                        // let hand = response.gameField.playerList.A.hand
+                        setCard()
                     })
                 }
             }
@@ -126,8 +130,6 @@
         border-radius: .3em;
         margin: .15em;
 
-        max-height: 2em;
-        max-width: 2em;
 
         background: #f0f0f0;
         box-shadow: inset 3px 3px 6px 4px rgba(100, 100, 100, 0.15);
@@ -151,7 +153,6 @@
         min-width: 2.5em;
         min-height: 2.5em;
         border-radius: .5em;
-        margin: .2em;
 
         background-image: url("../assets/card.png");
         background-size: cover;

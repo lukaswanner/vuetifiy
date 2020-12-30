@@ -3,7 +3,7 @@
         <v-container>
             <v-row class="pa-0 ma-0">
                 <v-col class="pa-0 ma-0" v-for="(card,i) in hand" :key="card + i">
-                    <div class="myCard" @click="addclick(hand,$event)">
+                    <div class="myCard inHand" @click="addclick(hand,$event)">
                         <div class="myCharacter">{{card}}</div>
                         <div class="myPoint">{{points[card]}}</div>
                     </div>
@@ -34,7 +34,7 @@
                 return store.state.handSize
             },
             currentPlayer() {
-                return store.state.currPlayer
+                return store.state.currentPlayer
             },
             hand() {
                 if (this.currentPlayer === "A") {
