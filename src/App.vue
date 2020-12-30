@@ -1,7 +1,13 @@
 <template>
   <v-app>
     <navbar/>
-    <grid/>
+    <v-container>
+      <v-row>
+        <v-col>
+          <grid/>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 

@@ -19,7 +19,7 @@ function connectWebSocket(url) {
     websocket.onclose = function (code) {
         console.log(code)
         console.log('Connection with Websocket Closed!');
-        connectWebSocket()
+        connectWebSocket(url)
     };
 
     websocket.onerror = function (error) {
@@ -34,15 +34,17 @@ function connectWebSocket(url) {
             // My_grid.fill(result.gameField.grid.cells, grid_size)
             if (result.Event === "GameFieldChanged()") {
                 loadjson().then(function Json(result) {
-                    console.log(result)
                     store.commit("fill", {json: result, size:result.gameField.grid.cells.length})
-                    console.log("works")
                 })
             }
-            if (result.Event === "GameSizeChanged()") {
+            if (result.Event === "GridSizeChanged()") {
                 loadjson().then(function Json(result) {
                     store.commit("fill", {json: result, size:result.gameField.grid.cells.length})
-                    console.log("works")
+                })
+            }
+            if (result.Event === "CardsChanged()") {
+                loadjson().then(function Json(result) {
+                    store.commit("fill", {json: result, size:result.gameField.grid.cells.length})
                 })
             }
         }

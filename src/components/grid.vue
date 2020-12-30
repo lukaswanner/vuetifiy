@@ -1,15 +1,13 @@
 <template>
-
     <div class="myGrid">
-        <v-container fill-height fluid>
-            <v-col>
+        <v-container class="ma-0" fill-height>
                 <v-row align="center" justify="center">
                     <div class="myCell myLabel"></div>
                     <div v-for="(col) in size" :key="col" class="myCell myLabel">
                         {{ col }}
                     </div>
                 </v-row>
-                <v-row class="myRow" v-for="(row,i) in size" :key="row" align="center" justify="center">
+                <v-row v-for="(row,i) in size" :key="row" align="center" justify="center">
                     <div class="myCell myLabel">
                         {{row}}
                     </div>
@@ -34,7 +32,7 @@
                 <v-row>
                     <hand/>
                 </v-row>
-            </v-col>
+
 <!--            here goes the buttons-->
 <!--            <p> test </p>-->
         </v-container>
@@ -58,7 +56,7 @@
                 url: "http://localhost:9000/json",
                 dataType: "json",
                 success: function (result) {
-                    store.commit("fill", {json: result, size: 15});
+                    store.commit("fill", {json: result, size: result.gameField.grid.cells.length});
                     resolve(result)
                 },
                 error: function (result) {
@@ -68,14 +66,15 @@
         })
     }
 
-    loadjson()
-
     export default {
         name: "grid",
 
 
         components: {
             hand,
+        },
+        created() {
+            loadjson()
         },
         data: function () {
             return {
