@@ -2,36 +2,41 @@
 
     <div class="myGrid">
         <v-container fill-height fluid>
-            <v-row align="center" justify="center">
-                <div class="myCell myLabel"></div>
-                <div v-for="(col) in size" :key="col" class="myCell myLabel">
-                    {{ col }}
-                </div>
-            </v-row>
-            <v-row class="myRow" v-for="(row,i) in size" :key="row" align="center" justify="center">
-                <div class="myCell myLabel">
-                    {{row}}
-                </div>
-                <div v-for="(m,index) in cells[i]" :key="m + index">
-                    <div v-if="m !== ''" class="myCell myCard" @click="addclick(cells,$event)">
-                        <div class="myCharacter"> {{m}}</div>
-                        <div class="myPoint"> {{points[m]}}</div>
+            <v-col>
+                <v-row align="center" justify="center">
+                    <div class="myCell myLabel"></div>
+                    <div v-for="(col) in size" :key="col" class="myCell myLabel">
+                        {{ col }}
+                    </div>
+                </v-row>
+                <v-row class="myRow" v-for="(row,i) in size" :key="row" align="center" justify="center">
+                    <div class="myCell myLabel">
+                        {{row}}
+                    </div>
+                    <div v-for="(m,index) in cells[i]" :key="m + index">
+                        <div v-if="m !== ''" class="myCell myCard" @click="addclick(cells,$event)">
+                            <div class="myCharacter"> {{m}}</div>
+                            <div class="myPoint"> {{points[m]}}</div>
+                        </div>
+
+                        <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
+                             @click="addclick(cells,$event)"></div>
+                        <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(cells,$event)">
+                            x2
+                        </div>
+                        <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(cells,$event)">
+                            x3
+                        </div>
+
                     </div>
 
-                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click="addclick(cells,$event)"></div>
-                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(cells,$event)">
-                        x2
-                    </div>
-                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(cells,$event)">
-                        x3
-                    </div>
-
-                </div>
-
-            </v-row>
-            <v-row>
-                <hand/>
-            </v-row>
+                </v-row>
+                <v-row>
+                    <hand/>
+                </v-row>
+            </v-col>
+<!--            here goes the buttons-->
+<!--            <p> test </p>-->
         </v-container>
     </div>
 </template>
