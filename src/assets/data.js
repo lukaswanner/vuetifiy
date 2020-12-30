@@ -31,7 +31,7 @@ function fill(json,size) {
         cells[j] = data
         data = []
     }
-    return cells[0].map((_, colIndex) => cells.map(row => row[colIndex]));
+    return cells
 }
 
 function fillKind(json,size) {
@@ -44,7 +44,7 @@ function fillKind(json,size) {
         kind[j] = data
         data = []
     }
-    return kind[0].map((_, colIndex) => kind.map(row => row[colIndex]));
+    return kind
 }
 
 function fillHand(json) {
