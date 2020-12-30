@@ -13,16 +13,16 @@
                     {{row}}
                 </div>
                 <v-col class="myCell" v-for="(m,index) in cells[i]" :key="m + index">
-                    <div v-if="m !== ''" class="myCell myCard" @click.self="addclick(cells,$event)">
+                    <div v-if="m !== ''" class="myCell myCard" @click="addclick(cells,$event)">
                         <div class="myCharacter"> {{m}}</div>
                         <div class="myPoint"> {{points[m]}}</div>
                     </div>
 
-                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click.self="addclick(cells,$event)"></div>
-                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click.self="addclick(cells,$event)">
+                    <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click="addclick(cells,$event)"></div>
+                    <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(cells,$event)">
                         x2
                     </div>
-                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click.self="addclick(cells,$event)">
+                    <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(cells,$event)">
                         x3
                     </div>
                 </v-col>
@@ -47,7 +47,6 @@
         return new Promise(function (resolve, reject) {
             $.ajax({
                 method: "GET",
-                async: false,
                 url: "http://localhost:9000/json",
                 dataType: "json",
                 success: function (result) {
@@ -89,25 +88,15 @@
         },
         methods: {
             addclick: function (grid, event) {
-                if (!event.target.classList.contains("active")) {
+                if (!event.currentTarget.classList.contains("active")) {
                     $(".myCell").removeClass("active")
-                    event.target.classList.add("active")
+                    event.currentTarget.classList.add("active")
                 } else {
                     //w8 for response
                     loadjson().then(function getHand(response) {
+                        //responese = json
                         console.log(response)
-                        let hand = response.gameField.playerList.A.hand
-                        console.log(hand[0].value)
-                        //zeile spalte index von der hand
-                        let url = "http://localhost:9000/scrabble/set/" + 7 + "/" + 9 + "/" + 4
-                        console.log(url)
-                        $.ajax({
-                            method: "GET",
-                            url: url,
-                            success: function () {
-                                console.log("done")
-                            }
-                        })
+                        // let hand = response.gameField.playerList.A.hand
                     })
                 }
             }

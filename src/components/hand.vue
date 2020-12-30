@@ -3,7 +3,7 @@
         <v-container>
             <v-row class="pa-0 ma-0">
                 <v-col class="pa-0 ma-0" v-for="(card,i) in hand" :key="card + i">
-                    <div class="myCard" @click.self="addclick(hand,$event)">
+                    <div class="myCard" @click="addclick(hand,$event)">
                         <div class="myCharacter">{{card}}</div>
                         <div class="myPoint">{{points[card]}}</div>
                     </div>
@@ -46,9 +46,9 @@
         },
         methods: {
             addclick: function (hand, event) {
-                if (!event.target.classList.contains("active")) {
-                    $(".myCell").removeClass("active")
-                    event.target.classList.add("active")
+                if (!event.currentTarget.classList.contains("active")) {
+                    $(".myCard").removeClass("active")
+                    event.currentTarget.classList.add("active")
                 }
             }
         }
