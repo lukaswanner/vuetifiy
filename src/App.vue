@@ -2,7 +2,6 @@
     <v-app>
 
         <navbar/>
-        <button v-on:click="sendMessage('hello')">Send Message</button>
         <v-main>
             <homepage/>
         </v-main>
