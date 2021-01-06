@@ -171,6 +171,7 @@
 
 
     .control {
+        text-align: center;
         margin: 3em 0 3em 3em;
         padding: 1em 1.2em;
         width: 80%;
@@ -180,7 +181,6 @@
     }
 
     .info {
-        text-align: center;
         font-size: 1.5em;
         border-radius: 1em;
         background-color: green;
