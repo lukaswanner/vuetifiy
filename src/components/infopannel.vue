@@ -42,14 +42,21 @@
                             cards
                         </v-btn>
                         <br/>
-                        <v-btn elevation="2" outlined rounded class="button">undo</v-btn>
-                        <br/>
-                        <v-btn elevation="2" outlined rounded class="button">redo</v-btn>
-                        <br/>
                         <v-btn elevation="2" outlined rounded class="button" @click="submit()">submit</v-btn>
                         <br/>
-                        <v-btn elevation="2" outlined rounded class="button">resize</v-btn>
-                        <br/>
+                        <v-col class="pa-0">
+                            <v-btn elevation="2" outlined rounded class="button playerButton" @click="resize('3')">3x3
+                            </v-btn>
+                            <v-btn elevation="2" outlined rounded class="button playerButton" @click="resize('9')">9x9
+                            </v-btn>
+                            <v-btn elevation="2" outlined rounded class="button playerButton" @click="resize('15')">
+                                15x15
+                            </v-btn>
+                        </v-col>
+                        <v-col class="pa-0">
+                            <v-btn elevation="2" outlined rounded class="button playerButton">undo</v-btn>
+                            <v-btn elevation="2" outlined rounded class="button playerButton">redo</v-btn>
+                        </v-col>
                         <v-btn elevation="2" outlined rounded class="playerButton" @click="selectPlayer('A')">Player A
                         </v-btn>
                         <v-btn elevation="2" outlined rounded class="playerButton" @click="selectPlayer('B')">Player B
@@ -141,7 +148,17 @@
                     }
                 });
             },
-
+            resize: function (size) {
+                let url = "http://localhost:9000/scrabble/resize/" + size
+                console.log("resize")
+                $.ajax({
+                    method: "GET",
+                    url: url,
+                    success: function () {
+                        loadjson()
+                    }
+                })
+            },
             selectPlayer: function (player) {
                 store.commit("setPlayer", player);
             }
@@ -194,9 +211,9 @@
     }
 
     .playerButton {
-        margin-top: 2em;
+        margin-top: 1em;
         margin-left: 0.3em;
         background-color: orange;
-        width: 40%;
+        width: 31%;
     }
 </style>

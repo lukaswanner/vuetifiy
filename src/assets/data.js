@@ -78,7 +78,7 @@ const store = new Vuex.Store({
         kind: [],
         size: 15,
         currentPlayer: "",
-        selectedPlayer:"Choose Player please",
+        selectedPlayer:"Choose",
         handSize:0,
         handA: [],
         handB: [],
