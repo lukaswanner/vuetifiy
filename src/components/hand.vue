@@ -1,20 +1,15 @@
 <template>
     <div class="myHand">
-        <v-container>
-            <v-row class="pa-0 ma-0">
-                <v-col class="pa-0 ma-0" v-for="(card,i) in hand" :key="card + i">
-                    <div class="myCard inHand" @click="addclick(hand,$event)">
-                        <div class="myCharacter">{{card}}</div>
-                        <div class="myPoint">{{points[card]}}</div>
-                    </div>
-                </v-col>
-            </v-row>
-        </v-container>
+        <div class="myCard inHand" @click="addclick(hand,$event)" v-for="(card,i) in hand" :key="card + i">
+            <div class="myCharacter">{{card}}</div>
+            <div class="myPoint">{{points[card]}}</div>
+        </div>
     </div>
 </template>
 
 <script>
     import store from "../assets/data";
+
     global.jQuery = require('jquery');
 
     let $ = global.jQuery;
@@ -59,8 +54,8 @@
 <style>
 
     .myHand {
-        display: block;
-        margin: 1em auto;
+        display: inline-flex;
+        margin: 1em;
         border-radius: .8em;
         background: #e9dac0;
         box-shadow: 3px 3px 5px 2px rgba(100, 100, 100, 0.15);

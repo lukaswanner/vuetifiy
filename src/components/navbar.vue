@@ -13,7 +13,7 @@
                     icon
                     color="white"
                     large
-                    href="https://github.com/lukaswanner/Salesman-Problem"
+                    href=""
             >
                 <v-icon>mdi-github</v-icon>
             </v-btn>
@@ -22,7 +22,7 @@
                     icon
                     color="white"
                     large
-                    href="https://github.com/lukaswanner/Salesman-Problem"
+                    href=""
             >
                 <v-icon>mdi-account</v-icon>
             </v-btn>
@@ -31,7 +31,7 @@
                     icon
                     color="white"
                     large
-                    href="https://github.com/lukaswanner/Salesman-Problem/issues"
+                    href=""
             >
                 <v-icon>mdi-bug</v-icon>
             </v-btn>

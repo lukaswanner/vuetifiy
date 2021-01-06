@@ -5,7 +5,6 @@
       <v-row>
         <v-col>
           <grid/>
-          <hand/>
         </v-col>
       </v-row>
     </v-container>
@@ -14,7 +13,6 @@
 
 <script>
 import navbar from './components/navbar.vue';
-import hand from './components/hand.vue'
 import grid from './components/grid.vue'
 
 
@@ -23,7 +21,6 @@ export default {
 
   components: {
     navbar,
-    hand,
     grid,
   },
 

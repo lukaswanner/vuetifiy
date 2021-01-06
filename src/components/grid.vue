@@ -1,30 +1,45 @@
 <template>
-    <div class="myGrid">
-        <div class="myRow">
-            <div class="myCell myLabel"></div>
-            <div v-for="(n) in size" class="myCell myLabel" :key="n">
-                {{ n }}
-            </div>
+    <v-container>
+        <v-row>
+            <div class="gamecontainer">
+                <div class="myGrid">
+                    <div class="myRow">
+                        <div class="myCell myLabel"></div>
+                        <div v-for="(n) in size" class="myCell myLabel" :key="n">
+                            {{ n }}
+                        </div>
 
-        </div>
-        <div v-for="(n,i) in size" class="myRow" :key="n + i">
-            <div class="myCell myLabel"> {{ n }}</div>
-            <div v-for="(m,index) in cells[i]" :key="m + index">
-                <div v-if="m !== ''" class="myCell myCard">
-                    <div class="myCharacter"> {{m}}</div>
-                    <div class="myPoint"> {{points[m]}}</div>
+                    </div>
+                    <div v-for="(n,i) in size" class="myRow" :key="n + i">
+                        <div class="myCell myLabel"> {{ n }}</div>
+                        <div v-for="(m,index) in cells[i]" :key="m + index">
+                            <div v-if="m !== ''" class="myCell myCard">
+                                <div class="myCharacter"> {{m}}</div>
+                                <div class="myPoint"> {{points[m]}}</div>
+                            </div>
+                            <div v-else-if="kind[i][index] ==='n'" class="myCell normal"
+                                 @click="addclick(cells,$event)"></div>
+                            <div v-else-if="kind[i][index] ==='d'" class="myCell double"
+                                 @click="addclick(cells,$event)">x2
+                            </div>
+                            <div v-else-if="kind[i][index] ==='t'" class="myCell triple"
+                                 @click="addclick(cells,$event)">x3
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div v-else-if="kind[i][index] ==='n'" class="myCell normal" @click="addclick(cells,$event)"></div>
-                <div v-else-if="kind[i][index] ==='d'" class="myCell double" @click="addclick(cells,$event)">x2</div>
-                <div v-else-if="kind[i][index] ==='t'" class="myCell triple" @click="addclick(cells,$event)">x3</div>
             </div>
-        </div>
-    </div>
+        </v-row>
+        <v-row>
+            <hand/>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
     import store from '../assets/data.js'
     import setCard from '../javascripts/setCard.js'
+    import hand from '../components/hand.vue'
 
     global.jQuery = require('jquery');
 
@@ -51,6 +66,9 @@
     export default {
         name: "grid",
 
+        components: {
+            hand
+        },
         created() {
             loadjson()
         },
@@ -79,8 +97,6 @@
                 } else {
                     //w8 for response
                     loadjson().then(function getHand(response) {
-                        //responese = json
-                        //handle request
                         console.log(response)
                         setCard()
                     })
@@ -91,6 +107,7 @@
 </script>
 
 <style>
+
     .myGrid {
         display: inline-flex;
         background: white;
