@@ -28,11 +28,11 @@
             size() {
                 return store.state.handSize
             },
-            currentPlayer() {
-                return store.state.currentPlayer
+            selectedPlayer() {
+                return store.state.selectedPlayer
             },
             hand() {
-                if (this.currentPlayer === "A") {
+                if (this.selectedPlayer === "A") {
                     return store.state.handA
                 } else {
                     return store.state.handB

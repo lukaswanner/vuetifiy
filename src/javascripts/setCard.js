@@ -9,13 +9,18 @@ window.$ = $;
 
 function setCard() {
     const current_player = store.state.currentPlayer
-    if (current_player === "A"){
-        setCardcurrPlayer()
-    } else if (current_player === "B") {
-        setCardcurrPlayer()
+    const selected_player = store.state.selectedPlayer
+    console.log(current_player,selected_player)
+    if(current_player === selected_player) {
+        if ((current_player) === "A") {
+            setCardcurrPlayer()
+        } else if ((current_player) === "B") {
+            setCardcurrPlayer()
+        }
+    }else{
+        alert("wait your turn")
+        return
     }
-
-
 }
 
 function setCardcurrPlayer() {
