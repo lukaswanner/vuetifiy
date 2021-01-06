@@ -169,14 +169,11 @@
 
 <style>
 
-    .v-application .info {
-        background-color: red;
-    }
 
     .control {
         margin: 3em 0 3em 3em;
         padding: 1em 1.2em;
-        width: 85%;
+        width: 80%;
         background-color: white;
         box-shadow: 0px 0px 10px 8px rgba(100, 100, 100, .2);
         border-radius: 1em;
