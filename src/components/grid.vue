@@ -102,7 +102,7 @@
 <style>
 
     .gamecontainer {
-
+        text-align: center;
     }
 
     .myGrid {

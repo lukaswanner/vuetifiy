@@ -1,9 +1,11 @@
 <template>
+    <div class="wrapper">
     <div class="myHand">
         <div class="myCard inHand" @click="addclick(hand,$event)" v-for="(card,i) in hand" :key="card + i">
             <div class="myCharacter">{{card}}</div>
             <div class="myPoint">{{points[card]}}</div>
         </div>
+    </div>
     </div>
 </template>
 
@@ -53,6 +55,9 @@
 
 <style>
 
+    .wrapper{
+        text-align: center;
+    }
     .myHand {
         display: inline-flex;
         margin: 1em;
