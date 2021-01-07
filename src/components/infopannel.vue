@@ -45,6 +45,14 @@
                         <v-btn elevation="2" outlined rounded class="button" @click="submit()">submit</v-btn>
                         <br/>
                         <v-col class="pa-0">
+                            <v-btn elevation="2" outlined rounded class="button playerButton">undo</v-btn>
+                            <v-btn elevation="2" outlined rounded class="button playerButton">redo</v-btn>
+                        </v-col>
+                        <v-btn elevation="2" outlined rounded class="playerButton" @click="selectPlayer('A')">Player A
+                        </v-btn>
+                        <v-btn elevation="2" outlined rounded class="playerButton" @click="selectPlayer('B')">Player B
+                        </v-btn>
+                        <v-col class="pa-0">
                             <v-btn elevation="2" outlined rounded class="button playerButton" @click="resize('3')">3x3
                             </v-btn>
                             <v-btn elevation="2" outlined rounded class="button playerButton" @click="resize('9')">9x9
@@ -53,14 +61,6 @@
                                 15x15
                             </v-btn>
                         </v-col>
-                        <v-col class="pa-0">
-                            <v-btn elevation="2" outlined rounded class="button playerButton">undo</v-btn>
-                            <v-btn elevation="2" outlined rounded class="button playerButton">redo</v-btn>
-                        </v-col>
-                        <v-btn elevation="2" outlined rounded class="playerButton" @click="selectPlayer('A')">Player A
-                        </v-btn>
-                        <v-btn elevation="2" outlined rounded class="playerButton" @click="selectPlayer('B')">Player B
-                        </v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -172,8 +172,8 @@
 
     .control {
         text-align: center;
-        margin: 3em 0 3em 3em;
-        padding: 1em 1.2em;
+        margin: 3em;
+        padding: 1em;
         width: 80%;
         background-color: white;
         box-shadow: 0px 0px 10px 8px rgba(100, 100, 100, .2);

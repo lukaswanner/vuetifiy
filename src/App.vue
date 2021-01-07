@@ -1,39 +1,56 @@
 <template>
-  <v-app>
-    <navbar/>
-    <v-container>
-      <v-row>
-        <v-col>
-          <grid/>
-          <hand/>
-        </v-col>
-        <v-col>
-          <infopannel/>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+    <v-app>
+        <navbar @play="updatePlay"/>
+        <div v-if="play">
+            <v-container>
+                <v-row class="pa-0">
+                    <v-col class="pa-0">
+                        <grid/>
+                        <hand/>
+                    </v-col>
+                    <v-col class="pa-0">
+                        <infopannel/>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </div>
+        <div v-else>
+            <index @play="updatePlay"/>
+        </div>
+    </v-app>
 </template>
 
 <script>
-import navbar from './components/navbar.vue';
-import grid from './components/grid.vue'
-import infopannel from "./components/infopannel";
-import hand from "./components/hand";
+    import navbar from './components/navbar.vue';
+    import grid from './components/grid.vue'
+    import infopannel from "./components/infopannel.vue";
+    import hand from "./components/hand.vue";
+    import index from "./components/main.vue"
 
 
-export default {
-  name: 'App',
+    export default {
+        name: 'App',
 
-  components: {
-    navbar,
-    grid,
-    hand,
-    infopannel,
-  },
+        components: {
+            navbar,
+            grid,
+            hand,
+            infopannel,
+            index,
+        },
 
-  data: () => ({
-    //
-  }),
-};
+        data: () => ({
+            play: false
+            //
+        }),
+        methods: {
+          updatePlay:function (bool) {
+              this.play = bool
+          }
+        }
+    };
 </script>
+
+<style>
+    html { overflow-y: auto }
+</style>
