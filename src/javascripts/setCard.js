@@ -9,13 +9,18 @@ window.$ = $;
 
 function setCard() {
     const current_player = store.state.currentPlayer
-    if (current_player === "A"){
-        setCardcurrPlayer()
-    } else if (current_player === "B") {
-        setCardcurrPlayer()
+    const selected_player = store.state.selectedPlayer
+    console.log(current_player,selected_player)
+    if(current_player === selected_player) {
+        if ((current_player) === "A") {
+            setCardcurrPlayer()
+        } else if ((current_player) === "B") {
+            setCardcurrPlayer()
+        }
+    }else{
+        alert("wait your turn")
+        return
     }
-
-
 }
 
 function setCardcurrPlayer() {
@@ -27,7 +32,7 @@ function setCardcurrPlayer() {
             let activerow = isActive(cells)
             if (activerow[0]) {
                 let activeCard = active[1]
-                let url = "http://localhost:9000/scrabble/set/" + i + "/" + (activerow[1] - 1) + "/" + activeCard
+                let url = "http://localhost:9000/scrabble/set/" + (activerow[1] - 1) + "/" +  (i-1) +"/" + activeCard
                 console.log(url)
                 $.ajax({
                     method: "GET",
